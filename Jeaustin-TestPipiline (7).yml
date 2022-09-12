@@ -1,0 +1,15 @@
+trigger:
+  enabled: false
+variables:
+- name: slotTarget
+  value: build
+stages:
+- stage: __default
+  jobs:
+  - job: buildApp
+    displayName: 'Build the Vue App'
+    steps:
+    - task: CmdLine@2
+      inputs:
+        script: "echo Write your commands here\necho $(slotTarget)\n    \n"
+
