@@ -1,15 +1,25 @@
-trigger:
-  enabled: false
-variables:
-- name: slotTarget
-  value: build
-stages:
-- stage: __default
-  jobs:
-  - job: buildApp
-    displayName: 'Build the Vue App'
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: "echo Write your commands here\necho $(slotTarget)\n    \n"
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
+trigger: none
+
+variables: 
+  ${{ if eq(variables['Build.SourceBranchName'], 'main') }} : 
+    slotTarget: build 
+  ${{ else }} :  
+    slotTarget: devBuild
+    
+  
+jobs:
+- job: buildApp 
+  displayName: 'Build the Vue App' 
+  #Set ENV.VARS for Webpack to read and inject during build 
+  steps:  
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo Write your commands here
+        echo $(slotTarget)
+            
