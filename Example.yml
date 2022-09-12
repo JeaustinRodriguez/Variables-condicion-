@@ -6,10 +6,13 @@
 trigger: none
 
 variables: 
+  VmImageName: 'Windows-lates'
   ${{ if eq(variables['Build.SourceBranchName'], 'main') }} : 
-    slotTarget: build 
+    slotTarget: 'build'
+  ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }} : 
+    slotTarget: 'qa'   
   ${{ else }} :  
-    slotTarget: devBuild
+    slotTarget: 'devBuild'
     
   
 jobs:
