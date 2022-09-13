@@ -6,13 +6,21 @@
 trigger: none
 
 variables: 
-  VmImageName: 'Windows-lates'
+
+- name: one
+  value: initialValue 
+- name: VmImageName
+  value: 'windows-latest'
+- name: slotTarget
   ${{ if eq(variables['Build.SourceBranchName'], 'main') }} : 
-    slotTarget: 'build'
+    value: 'build'
   ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }} : 
-    slotTarget: 'qa'   
+    value: 'qa'   
   ${{ else }} :  
-    slotTarget: 'devBuild'
+    value: 'devBuild'
+  
+pool:
+  vmImage: $(VmImageName)
     
   
 jobs:
@@ -26,3 +34,5 @@ jobs:
         echo Write your commands here
         echo $(slotTarget)
             
+
+
